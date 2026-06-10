@@ -1,7 +1,7 @@
 # VPC Module & Security Group
 
 resource "aws_security_group" "sg" {
-  name = "terra-sg"
+  name = "terraform-sg"
   vpc_id = aws_vpc.vpc.id
 
   dynamic "ingress" {
@@ -22,14 +22,14 @@ resource "aws_security_group" "sg" {
     cidr_blocks = ["0.0.0.0/0"]
     }
     tags = {
-      Name = "terra-sg"
+      Name = "terraform-sg"
     }
 }
 
 resource "aws_vpc" "vpc" {
   cidr_block = "192.168.0.0/16"
   tags = {
-    Name = "terra-vpc"
+    Name = "terraform-vpc"
   }
 }
 
@@ -74,7 +74,7 @@ resource "aws_subnet" "pvt-subnet2" {
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "terra-igw"
+    Name = "terraform-igw"
   }
 }
 
@@ -86,14 +86,14 @@ resource "aws_nat_gateway" "nat-igw" {
   allocation_id = aws_eip.eip.id
   subnet_id = aws_subnet.subnet1.id
   tags = {
-    Name = "terra-nat-igw"
+    Name = "terraform-nat-igw"
   }
 }
 
 resource "aws_route_table" "rt" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "terra-rt"
+    Name = "terraform-rt"
   }
   route {
     cidr_block = "0.0.0.0/0"
@@ -114,7 +114,7 @@ resource "aws_route_table_association" "rt2" {
 resource "aws_route_table" "pvt-rt" {
   vpc_id = aws_vpc.vpc.id
   tags = {
-    Name = "terra-pvt-rt"
+    Name = "terraform-pvt-rt"
   }
   route {
     cidr_block = "0.0.0.0/0"
